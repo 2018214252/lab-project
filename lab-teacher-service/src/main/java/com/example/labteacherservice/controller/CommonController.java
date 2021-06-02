@@ -10,6 +10,7 @@ import com.example.labteacherservice.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class CommonController {
     private UserService userService;
     @Autowired
     private ReservationRecordService reservationRecordService;
+    @Autowired
+    private PasswordEncoder encoder;
 
     @ApiOperation("加载所有实验室信息")
     @GetMapping("labs")
@@ -44,16 +47,16 @@ public class CommonController {
         return ResultVO.success(Map.of());
     }
 
-    @ApiOperation("加载所有预约记录")
-    @GetMapping("allrecords")
-    public ResultVO listAllRecords() {
-        return ResultVO.success(Map.of("allrecords", reservationRecordService.listALLRecords()));
-    }
-
     @ApiOperation("修改密码")
     @PatchMapping("password")
     public ResultVO updatePassword(@RequestAttribute("uid") long uid, @RequestBody Map<String, String> map) {
-        userService.updatePassword(uid, map.get("password"));
+        String oldPassword = map.get("oldPassword");
+        String newPassword = map.get("newPassword");
+        String userName = map.get("userName");
+        if (oldPassword == null || !encoder.matches(oldPassword, userService.getUser(userName).getPassword())) {
+            return ResultVO.error(401, "原密码错误");
+        }
+        userService.updatePassword(uid, newPassword);
         return ResultVO.success(Map.of());
     }
 

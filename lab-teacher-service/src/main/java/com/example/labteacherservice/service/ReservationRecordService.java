@@ -16,23 +16,27 @@ public class ReservationRecordService {
     @Autowired
     private ReservationRecordMapper reservationRecordMapper;
 
-    @CacheEvict(value = "records", key = "#tid")
+    @CacheEvict(value = "myRecords", key = "#tid")
     public void insertRecord(ReservationRecord record,long tid) {
         reservationRecordMapper.insert(record);
     }
 
-    public List<ReservationRecord> listALLRecords() {
-        return reservationRecordMapper.listALLRecords();
-    }
+//    public List<ReservationRecord> listALLRecords() {
+//        return reservationRecordMapper.listALLRecords();
+//    }
 
-    @Cacheable(value = "records", key = "#tid")
+    @Cacheable(value = "myRecords", key = "#tid")
     public List<ReservationRecord> getRecords(long tid) {
         return reservationRecordMapper.getRecords(tid);
     }
 
-    @CacheEvict(value = "records", key = "#tid")
+    @CacheEvict(value = "myRecords", key = "#tid")
     public void deleteRecord(long id,long tid) {
         reservationRecordMapper.deleteRecord(id);
+    }
+
+    public List<ReservationRecord> getRecordsByLid(long lid){
+        return reservationRecordMapper.getRecordsByLid(lid);
     }
 
 }
