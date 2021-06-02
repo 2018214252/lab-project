@@ -1,10 +1,8 @@
 spring:
-  cloud:
-    nacos:
-      discovery:
-        enabled: false
   application:
     name: lab-login-service
+  profiles:
+    active: win
   datasource:
     url: 'jdbc:mysql://114.116.213.241:3306/2018214252?
           createDatabaseIfNotExist=true

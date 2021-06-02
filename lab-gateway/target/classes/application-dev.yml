@@ -15,14 +15,14 @@ spring:
        - id: lab-admin-service
          predicates:
            - Path=/admin-api/**
-         uri: http://localhost:8080
+         uri: http://localhost:8082
          filters:
            - StripPrefix=1
            - PrefixPath=/api/
        - id: lab-teacher-service
          predicates:
            - Path=/teacher-api/**
-         uri: http://localhost:8080
+         uri: http://localhost:8083
          filters:
            - StripPrefix=1
            - PrefixPath=/api/

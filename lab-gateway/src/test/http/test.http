@@ -6,5 +6,20 @@ Content-Type: application/json
   "password": "123456"
 }
 ###
+GET http://localhost/admin-api/admin/teachers
+token:95e33650d50e1abf5c9a210291ffb3ba3986bc747f618e664df9cb1088597b73ca7c4f5d89f0435ea12cf5da3870a133
+###
+PATCH http://localhost/teacher-api/common/password
+token:3cd7628297d6842cc71522b2fae079eb7a75b0bbb370cd48c688300024d142be5067feb65ce792de3ffebf2443d920f8
+Content-Type: application/json
 
+{
+  "password": "123456"
+}
+###
+GET http://localhost/teacher-api/common/labs
+token:bb6147bab7f6373d3ebc18688f432e259e995fcaedfd3d985122f1cf29a0ba677f110be69788168117c2eb084fa2e57d
+###
+GET http://localhost/teacher-api/common/teacher
+token:3cd7628297d6842cc71522b2fae079eb7a75b0bbb370cd48c688300024d142be5067feb65ce792de3ffebf2443d920f8
 ###
