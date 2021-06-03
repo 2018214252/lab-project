@@ -21,4 +21,10 @@ public class UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         userMapper.insert(user);
     }
+
+    public User getUser(String userName){
+        User user = userMapper.getUser(userName);
+        log.debug("userName: {}",userName);
+        return user;
+    }
 }

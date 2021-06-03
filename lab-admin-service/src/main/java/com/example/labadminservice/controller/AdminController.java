@@ -78,8 +78,11 @@ public class AdminController {
     @ApiOperation("添加教师账号")
     @PostMapping("user")
     public ResultVO addUser(@RequestBody User user) {
-        userService.insertUser(user);
-        return ResultVO.success(Map.of());
+        if(userService.getUser(user.getUserName())==null){
+            userService.insertUser(user);
+            return ResultVO.success(Map.of());
+        }
+        return ResultVO.error(500,"用户名已存在");
     }
 
 
