@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Api(value = "处理教师操作请求", tags = {"Authorization, Teacher"})
@@ -32,7 +33,7 @@ public class TeacherController {
 
     @ApiOperation("添加课程，并返回指定教师信息")
     @PostMapping("course")
-    public ResultVO insertCourse(@RequestAttribute("uid") long tid, @RequestBody Course course) {
+    public ResultVO insertCourse(@RequestAttribute("uid") long tid,@Valid @RequestBody Course course) {
         course.setTid(tid);
         courseService.insertCourse(course, tid);
         return ResultVO.success(Map.of("teacher", teacherService.getTeacher(tid)));
@@ -47,7 +48,7 @@ public class TeacherController {
 
     @ApiOperation("修改课程信息，并返回教师信息")
     @PatchMapping("course")
-    public ResultVO updateCourse(@RequestAttribute("uid") long tid, @RequestBody Course course) {
+    public ResultVO updateCourse(@RequestAttribute("uid") long tid,@Valid @RequestBody Course course) {
         courseService.updateCourse(course, tid);
         return ResultVO.success(Map.of("teacher", teacherService.getTeacher(tid)));
     }
