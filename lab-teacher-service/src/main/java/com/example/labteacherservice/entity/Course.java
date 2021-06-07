@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @TableName("course")
 public class Course {
     private Long id;
-    @NotNull(message = "教师id不能为空")
     private Long tid;
     @NotNull(message = "课程名称不能为空")
     private String name;

@@ -17,4 +17,5 @@ public class ReservationRecord {
     private int week;//周次
     private int day;//星期几
     private int lesson;//第几节课
+    private String createTime;
 }

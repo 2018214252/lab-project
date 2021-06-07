@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "userName": "2018214252",
-  "password": "123456"
+  "password": "123"
 }
 ###
 GET http://localhost/admin-api/admin/teachers
@@ -38,4 +38,7 @@ Token: 3cd7628297d6842cc71522b2fae079eb7a75b0bbb370cd48c688300024d142be5067feb65
 ###
 GET http://localhost/teacher-api/teacher/records/901
 Token: 3cd7628297d6842cc71522b2fae079eb7a75b0bbb370cd48c688300024d142be5067feb65ce792de3ffebf2443d920f8
+###
+DELETE http://localhost/admin-api/admin/user/111
+token:95e33650d50e1abf5c9a210291ffb3ba3986bc747f618e664df9cb1088597b73ca7c4f5d89f0435ea12cf5da3870a133
 ###

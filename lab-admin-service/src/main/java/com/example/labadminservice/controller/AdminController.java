@@ -2,6 +2,7 @@ package com.example.labadminservice.controller;
 
 import com.example.labadminservice.entity.Lab;
 import com.example.labadminservice.entity.Teacher;
+import com.example.labadminservice.entity.TeacherUser;
 import com.example.labadminservice.entity.User;
 import com.example.labadminservice.service.LabService;
 import com.example.labadminservice.service.TeacherService;
@@ -55,18 +56,34 @@ public class AdminController {
         return ResultVO.success(Map.of("teachers", teacherService.listTeachers()));
     }
 
-    @ApiOperation("添加新教师信息，并返回当前所有教师信息")
+    @ApiOperation("添加新教师中，并返回当前所有教师信息")
     @PostMapping("teacher")
-    public ResultVO insertTeacher(@Valid @RequestBody Teacher teacher) {
-        if (teacherService.getTeacherById(teacher.getId()) == null) {
-            return ResultVO.success(Map.of("teachers", teacherService.insertTeacher(teacher)));
+    public ResultVO insertTeacher(@Valid @RequestBody TeacherUser teacherUser) {
+        Teacher teacher = Teacher.builder()
+                .id(teacherUser.getId())
+                .name(teacherUser.getName())
+                .profession(teacherUser.getProfession())
+                .build();
+        User user = User.builder()
+                .id(teacherUser.getId())
+                .userName(teacherUser.getUserName())
+                .password(teacherUser.getPassword())
+                .role(5)
+                .build();
+        if(teacherService.getTeacherById(teacher.getId()) != null){
+            return ResultVO.error(500,"教师已存在");
         }
-        return ResultVO.error(500, "教师已存在");
+        if(userService.getUser(user.getUserName()) != null){
+            return ResultVO.error(500,"用户名已存在");
+        }
+        userService.insertUser(user);
+        return ResultVO.success(Map.of("teachers", teacherService.insertTeacher(teacher)));
     }
 
     @ApiOperation("删除教师，并返回当前所有教师信息")
     @DeleteMapping("teacher/{tid}")
     public ResultVO deleteTeacher(@PathVariable long tid) {
+        userService.deleteUser(tid);
         return ResultVO.success(Map.of("teachers", teacherService.deleteTeacher(tid)));
     }
 
@@ -76,15 +93,11 @@ public class AdminController {
         return ResultVO.success(Map.of("teachers", teacherService.updateTeacher(teacher)));
     }
 
-    @ApiOperation("添加教师账号")
-    @PostMapping("user")
-    public ResultVO addUser(@Valid @RequestBody User user) {
-        if(userService.getUser(user.getUserName())==null){
-            userService.insertUser(user);
-            return ResultVO.success(Map.of());
-        }
-        return ResultVO.error(500,"用户名已存在");
+    @ApiOperation("重置密码")
+    @PatchMapping("password/{id}")
+    public ResultVO resetPassword(@PathVariable long id){
+        userService.updatePassword(id,String.valueOf(id));
+        return ResultVO.success(Map.of());
     }
-
 
 }

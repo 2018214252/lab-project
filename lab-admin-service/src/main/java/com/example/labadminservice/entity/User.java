@@ -18,10 +18,11 @@ public class User {
     private Long id;
     @NotNull(message = "角色信息不能为空")
     private Integer role;
-    @NotNull(message = "用户名不能为空")
-    @Size(min = 6,max = 15,message = "用户名长度应为6~15")
+    @NotNull(message = "用户名长度应在6~15之间")
+    @Size(min = 6, max = 15, message = "用户名长度应在6~15之间")
     private String userName;
-    @NotNull(message = "密码不能为空")
+    @NotNull(message = "密码长度应在6~15之间")
+    @Size(min = 6, max = 15, message = "密码长度应在6~15之间")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 }
