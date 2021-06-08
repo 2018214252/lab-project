@@ -42,3 +42,13 @@ Token: 3cd7628297d6842cc71522b2fae079eb7a75b0bbb370cd48c688300024d142be5067feb65
 DELETE http://localhost/admin-api/admin/user/111
 token:95e33650d50e1abf5c9a210291ffb3ba3986bc747f618e664df9cb1088597b73ca7c4f5d89f0435ea12cf5da3870a133
 ###
+POST http://localhost/teacher-api/teacher/course
+Content-Type: application/json
+token:95e33650d50e1abf5c9a210291ffb3ba3986bc747f618e664df9cb1088597b73ca7c4f5d89f0435ea12cf5da3870a133
+
+{
+  "name": "mhdnb",
+  "classHour": 25,
+  "studentNumber": 55
+}
+###

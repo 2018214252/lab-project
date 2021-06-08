@@ -34,8 +34,6 @@ public class ExceptionController {
         exception.getBindingResult()
                 .getFieldErrors()
                 .forEach(e -> {
-                    stringBuilder.append(e.getField());
-                    stringBuilder.append(": ");
                     stringBuilder.append(e.getDefaultMessage());
                     stringBuilder.append("; ");
                 });
