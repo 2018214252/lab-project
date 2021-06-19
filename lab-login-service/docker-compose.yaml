@@ -1,0 +1,17 @@
+version: '3'
+services:
+  login-service:
+    image: openjdk:11
+    ports:
+      - 8080
+    environment:
+      - nacos_host=http://nacos:8848
+      - nacos_password=nefu2018214252
+    volumes:
+    - ./:/home/login
+    command: java -jar /home/login/lab-login-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+
+networks:
+  default:
+    external:
+      name: lab_default

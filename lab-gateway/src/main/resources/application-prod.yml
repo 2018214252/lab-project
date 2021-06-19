@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: ${nacos_host}
+        username: nacos
+        password: ${nacos_password}
+        namespace: public
+    gateway:
+      routes:
+        - id: lab-login-service
+          predicates:
+            - Path=/login-api/**
+          uri: lb://lab-login-service
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/api/
+        - id: lab-admin-service
+          predicates:
+            - Path=/admin-api/**
+          uri: lb://lab-admin-service
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/api/
+        - id: lab-teacher-service
+          predicates:
+            - Path=/teacher-api/**
+          uri: lb://lab-teacher-service
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/api/

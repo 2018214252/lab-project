@@ -4,4 +4,4 @@ spring:
   profiles:
     active: win
 server:
-  port: 80
+  port: 8081

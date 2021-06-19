@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: ${nacos_host}
+        username: nacos
+        password: ${nacos_password}
+        namespace: public
